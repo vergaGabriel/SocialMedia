@@ -1,5 +1,6 @@
 package com.github.vergaGabriel.SocialMedia.Domain.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class User {
     private String course;
     private LocalDateTime creationDate;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "user_following",
@@ -25,6 +27,7 @@ public class User {
     )
     private Set<User> following = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "following")
     private Set<User> followers = new HashSet<>();
 

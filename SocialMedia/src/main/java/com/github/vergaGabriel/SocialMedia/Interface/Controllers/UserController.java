@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -69,5 +70,35 @@ public class UserController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/{id}/followers")
+    public ResponseEntity<List<String>> getFollowers(@PathVariable Long id) {
+        Optional<User> userOpt = userService.getById(id);
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOpt.get();
+        List<String> followerNames = user.getFollowers().stream()
+                .map(User::getName)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(followerNames);
+    }
+
+    @GetMapping("/{id}/following")
+    public ResponseEntity<List<String>> getFollowing(@PathVariable Long id) {
+        Optional<User> userOpt = userService.getById(id);
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = userOpt.get();
+        List<String> followingNames = user.getFollowing().stream()
+                .map(User::getName)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(followingNames);
     }
 }
