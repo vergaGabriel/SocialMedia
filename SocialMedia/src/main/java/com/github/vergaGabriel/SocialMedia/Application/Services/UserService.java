@@ -52,7 +52,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public void putUser(User newUser, Long id) {
+    public void putUser(Long id, UserDto newUser) {
         User oldUser = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
