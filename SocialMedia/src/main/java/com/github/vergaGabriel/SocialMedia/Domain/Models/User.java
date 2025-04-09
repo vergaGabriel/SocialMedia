@@ -40,6 +40,9 @@ public class User {
     )
     private Set<Post> postsLikes = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Post> posts = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -103,5 +106,13 @@ public class User {
 
     public void setPostsLikes(Set<Post> postsLikes) {
         this.postsLikes = postsLikes;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
     }
 }

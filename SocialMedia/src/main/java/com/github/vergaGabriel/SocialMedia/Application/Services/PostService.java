@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,7 +40,16 @@ public class PostService {
         post.setName(postDto.getName());
         post.setContent(postDto.getContent());
         post.setCreationDate(LocalDateTime.now());
+        post.setAuthor(userRepository.findById(postDto.getAuthorId()).orElseThrow());
 
         postRepository.save(post);
+    }
+
+    public List<Post> getAll() {
+        return postRepository.findAll();
+    }
+
+    public Optional<Post> getById(Long id) {
+        return postRepository.findById(id);
     }
 }

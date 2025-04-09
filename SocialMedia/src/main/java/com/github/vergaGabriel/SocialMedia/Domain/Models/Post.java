@@ -21,6 +21,11 @@ public class Post {
     @ManyToMany(mappedBy = "postsLikes")
     private Set<User> likes = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+
     public Long getId() {
         return id;
     }
@@ -59,5 +64,13 @@ public class Post {
 
     public void setLikes(Set<User> likes) {
         this.likes = likes;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
