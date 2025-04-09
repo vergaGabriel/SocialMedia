@@ -31,6 +31,16 @@ public class User {
     @ManyToMany(mappedBy = "following")
     private Set<User> followers = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "user_post_like",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<Post> postsLikes = new HashSet<>();
+
+
     public Long getId() {
         return id;
     }
@@ -85,5 +95,13 @@ public class User {
 
     public void setFollowers(Set<User> followers) {
         this.followers = followers;
+    }
+
+    public Set<Post> getPostsLikes() {
+        return postsLikes;
+    }
+
+    public void setPostsLikes(Set<Post> postsLikes) {
+        this.postsLikes = postsLikes;
     }
 }

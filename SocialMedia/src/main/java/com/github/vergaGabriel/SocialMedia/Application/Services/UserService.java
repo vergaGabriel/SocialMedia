@@ -2,7 +2,7 @@ package com.github.vergaGabriel.SocialMedia.Application.Services;
 
 import com.github.vergaGabriel.SocialMedia.Application.Dtos.UserDto;
 import com.github.vergaGabriel.SocialMedia.Domain.Models.User;
-import com.github.vergaGabriel.SocialMedia.Infrastructure.Repositories.UserRepository;
+import com.github.vergaGabriel.SocialMedia.Infrastructure.Repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
 
     public void followUser(Long followerId, Long followedId) {
         if (followerId.equals(followedId)) {
