@@ -1,5 +1,6 @@
 package com.github.vergaGabriel.SocialMedia.Interface.Controllers;
 
+import com.github.vergaGabriel.SocialMedia.Application.Dtos.CommentRequestDto;
 import com.github.vergaGabriel.SocialMedia.Application.Dtos.PostDto;
 import com.github.vergaGabriel.SocialMedia.Application.Dtos.PostResponseDTO;
 import com.github.vergaGabriel.SocialMedia.Application.Services.PostService;
@@ -39,6 +40,19 @@ public class PostController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @PostMapping("/{postId}/comment")
+    public ResponseEntity<String> commentPost(
+            @PathVariable Long postId,
+            @RequestBody CommentRequestDto commentDto) {
+        try {
+            postService.commentPost(postId, commentDto.comment());
+            return ResponseEntity.ok("Post " + postId + " commented!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
     @GetMapping

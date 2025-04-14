@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,8 @@ public class Post {
     @JsonIgnore
     @ManyToMany(mappedBy = "postsLikes")
     private Set<User> likes = new HashSet<>();
+
+    private Set<String> comments = new HashSet<>();
 
     @JsonIgnore
     @ManyToOne
@@ -72,5 +75,13 @@ public class Post {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public Set<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<String> comments) {
+        this.comments = comments;
     }
 }

@@ -35,6 +35,19 @@ public class PostService {
         userRepository.save(user);
     }
 
+    public void commentPost(Long postId, String comment) {
+        Optional<Post> postOpt = postRepository.findById(postId);
+
+        if (postOpt.isEmpty()) {
+            throw new IllegalArgumentException("Post not found.");
+        }
+
+        Post post = postOpt.get();
+
+        post.getComments().add(comment);
+        postRepository.save(post);
+    }
+
     public void postPost(PostDto postDto) {
         Post post = new Post();
         post.setName(postDto.getName());
